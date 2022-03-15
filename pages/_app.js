@@ -1,7 +1,9 @@
 import Head from "next/head";
+import Layout from "../components/Layout";
 import { GlobalStyle } from "../styles/global-style";
 
 function MyApp({ Component, pageProps }) {
+
   return (
     <>
       <Head>
@@ -9,7 +11,9 @@ function MyApp({ Component, pageProps }) {
         <title>nextjs try</title>
       </Head>
       <GlobalStyle />
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </>
   )
 }
