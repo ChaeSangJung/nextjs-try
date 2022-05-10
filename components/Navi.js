@@ -5,6 +5,7 @@ export default function Navi(){
     <ul>
       <li>
         <Link href='/'><a>main : axios, useEffect, rewrites()</a></Link>
+        <Link href='/serverMain'><a>getServerSideProps</a></Link>
       </li>
     </ul>
   );

@@ -1,18 +1,33 @@
-import { useRouter } from "next/router";
-import { useEffect } from 'react';
-import { useState } from 'react';
 import { detailApi } from '../api/api';
 
-export default function Detail() {
-  const router = useRouter();
-  const parseID = parseInt(router.query.id);
+const Detail = ({data}) => {
+  console.log(data);
+  
+  // const [movie, setMovie] = useState();
+  // useEffect(()=>{
+  //   if(parseID) {
+  //     (async ()=>{
+  //       const {data : details} = await detailApi(parseID);
+  //       setMovie(details)
+  //     })()
+  //   }
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // },[parseID]);
 
-  const [movie, setMovie] = useState();
-  useEffect(()=>{
-    (async ()=>{
-      const {data : details} = await detailApi(parseID);
-      
-    })()
-  },[parseID]);
-  return "detail";
+  // console.log(movie)
+
+  return (
+    <div></div>
+  );
 }
+
+export async function getServerSideProps(context) {
+  const {id} = context.params;
+  const {data} = await detailApi(id);
+  
+  return {
+    props: {data: data},
+  }
+}
+
+export default Detail;

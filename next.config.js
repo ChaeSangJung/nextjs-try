@@ -10,6 +10,21 @@ module.exports = {
         destination: "/new-sexy-blog/:path*",
         permanent: false,
       },
+      {
+        source: "/api/movies/:id",
+        destination: `${BASE_URL}/movie/:id?api_key=${API_KEY}`,
+        permanent: true,
+      },
+      {
+        source: "/serverMain",
+        destination: "/serverMain/1",
+        permanent: true,
+      },
+      {
+        source: "/serverMain/0",
+        destination: "/serverMain/1",
+        permanent: true,
+      }
     ];
   },
   async rewrites() {
