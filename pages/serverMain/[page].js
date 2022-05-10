@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Link from 'next/link';
 import Image from 'next/image';
 import { WrapImg, WrapPaging } from './style';
+import Seo from "../../components/Seo";
 
 const serverMain = ({data}) => {
   const value = 10;
@@ -30,6 +31,7 @@ const serverMain = ({data}) => {
   
   return (
     <>
+      <Seo title={`page ${data.page}`} />
       <ul>
         {data.results.map((result)=>(
           <li key={result.id}>

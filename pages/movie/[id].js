@@ -1,4 +1,5 @@
 import { detailApi } from '../api/api';
+import Seo from "../../components/Seo";
 
 const Detail = ({data}) => {
   console.log(data);
@@ -17,7 +18,10 @@ const Detail = ({data}) => {
   // console.log(movie)
 
   return (
-    <div></div>
+    <>
+      <Seo title={data.original_title} />
+      <div>{data.original_title}</div>
+    </>
   );
 }
 
