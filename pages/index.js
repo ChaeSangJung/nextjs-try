@@ -4,6 +4,7 @@ import Link from 'next/link';
 import styled from "styled-components";
 import Seo from "../components/Seo";
 import { popularApi } from "./api/api";
+import { QueryClient, dehydrate, useQuery } from 'react-query';
 
 const WrapCont = styled.div`
   display : flex;
@@ -26,16 +27,20 @@ const WrapCont = styled.div`
 export default function Home(){
   const [movies, setMovies] = useState([]);
   
-  useEffect(()=>{
-    (async ()=>{
-      const {data : { results }} = await popularApi();
-      setMovies(results);
-    })();
-  },[]);
+  // useEffect(()=>{
+  //   (async ()=>{
+  //     const {data : { results }} = await popularApi();
+  //     setMovies(results);
+  //   })();
+  // },[]);
+
+  const { data } = useQuery(['posts'], popularApi());
+
+  console.log(data)
   
   return (
     <WrapCont>
-      <Seo title={'home'} />
+      {/* <Seo title={'home'} />
       {!movies && <h4>Loading...</h4>}
       {movies?.map((movie) => (
         <div className='list_mov' key={movie.id}>
@@ -44,7 +49,7 @@ export default function Home(){
           </div>
           <Link href={`/movie/${movie.id}`}><a>{movie.original_title}</a></Link>
         </div>
-      ))}
+      ))} */}
       {/* {!results && <h4>Loading...</h4>} */}
       {/* {results?.map((movie) => (
         <div key={movie.id}>
@@ -56,11 +61,21 @@ export default function Home(){
   );
 }
 
-// export async function getServerSideProps() {
-//   const {data : { results }} = await popularApi();
-//   return {
-//     props: {
-//       results,
-//     },
-//   }
-// }
+export async function getStaticProps() {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery('posts', popularApi());
+  
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  }
+  // const {data : { results }} = await popularApi();
+  // console.log(results)
+  // return {
+  //   props: {
+  //     results,
+  //   },
+  // }
+}
